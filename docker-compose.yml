@@ -1,11 +1,27 @@
 version: "3"
-services: 
+services:
+    db:
+        image: postgres:12.2-alpine
+        volumes:
+            - postgres_data:/var/lib/postgresql/data/
+        environment:
+            - POSTGRES_USER=django
+            - POSTGRES_PASSWORD=django
+            - POSTGRES_DB=django_dev
+        ports:
+            - 5432:5432
+        restart: always
     django:
-        build: ./project
-        volumes: 
-            - ./project/work:/work
-        ports: 
+        build: ./project/app
+        volumes:
+            - ./project/app:/work
+        ports:
             - "5000:5000"
         tty: true
         environment:
             TZ: "Asia/Tokyo"
+        env_file: 
+            - ./.env.dev
+
+volumes:
+    postgres_data:

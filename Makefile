@@ -1,17 +1,16 @@
-NAME=portfolio_django
+APP=portfolio_django
+DB=portfolio_db
 
 build:
-	sudo docker-compose build
-	sudo docker-compose up -d
+	docker-compose up -d --build
 run:
-	sudo docker start ${NAME}_1
+	docker start ${APP}_1
 
 stop:
-	sudo docker stop ${NAME}_1
+	docker stop ${APP}_1
 
 rm:
-	sudo docker rm ${NAME}_1
+	docker rm ${APP}_1
 
 kill:
-	sudo docker stop ${NAME}_1
-	sudo docker rm ${NAME}_1
+	docker-compose down --rmi all
