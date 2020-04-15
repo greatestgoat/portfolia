@@ -17,6 +17,11 @@ ARG WORK=/work
 RUN mkdir work
 WORKDIR /work/portfolio-project
 ADD ./portfolio-project/requirements.txt /work/portfolio-project
+ADD ./portfolio-project/entrypoint.sh  /work/portfolio-project
+RUN sudo chmod +x entrypoint.sh
 
 # install package
 RUN pip install -r requirements.txt
+
+# migrate db
+ENTRYPOINT ["/work/portfolio-project/entrypoint.sh"]
